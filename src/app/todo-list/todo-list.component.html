@@ -1,0 +1,86 @@
+<div class="mt-5 mb-3">
+  <h3>Add item to list</h3>
+<form [formGroup]="AddDataForm" (ngSubmit)="addFieldValue()" class="row">
+    <div class="form-group col-12 col-md-5">
+      <label class="sr-only" for="name">Name<sup class="text-danger">*</sup></label>
+      <input type="text" class="form-control" [ngClass]="{ 'is-invalid': AddDataForm.get('name').errors && ( submitted || AddDataForm.get('name').touched || AddDataForm.get('name').dirty) }" name="name" formControlName="name" id="name" placeholder="Name">
+      <span class="text-danger" *ngIf="AddDataForm.get('name').errors && (submitted || AddDataForm.get('name').touched || AddDataForm.get('name').dirty)">
+        <span *ngIf="AddDataForm.get('name').errors.required">
+          Required field*
+        </span>
+        <span *ngIf="AddDataForm.get('name').errors.minlength">
+          Minimum 4 charector required
+        </span>
+      </span>
+    </div>
+
+    <div class="form-group col-12 col-md-5">
+      <label class="sr-only" for="email">Email<sup>*</sup></label>
+      <input type="email" class="form-control" [ngClass]="{ 'is-invalid': AddDataForm.get('email').errors && (submitted || AddDataForm.get('email').touched || AddDataForm.get('email').dirty) }" name="email" formControlName="email" id="email" placeholder="Email">
+      <span class="text-danger" *ngIf="AddDataForm.get('email').errors && (submitted || AddDataForm.get('email').touched || AddDataForm.get('email').dirty)">
+        <span *ngIf="AddDataForm.get('email').errors.required">
+          Email required*
+        </span>
+        <span *ngIf="AddDataForm.get('email').errors.email">
+          Please enter a valid Email
+        </span>
+      </span>
+    </div>
+    <div class="form-group col-12 col-md-2">
+    <button type="submit" class="btn btn-outline-primary btn-block" >Add</button>
+    </div>
+  </form>
+</div>
+<!-- Data Table -->
+<div class="table-responsive" *ngIf="showList">  
+<table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th class="w-25">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of fieldArray; let i = index">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ item.name }}</td>
+        <td>{{ item.email }}</td>
+        <td>
+          <button type="button" class="btn btn-primary mr-3" (click)="ShowDetails(i)" data-toggle="modal" data-target="#showDetails">Show details</button> 
+          <button type="button" class="btn btn-danger" (click)="deleteFieldValue(i)" *ngIf="DeleteBtn">Delete</button> 
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <!-- Modal -->
+<div class="modal" id="showDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenteredLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenteredLabel">List Item</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card">
+          <ul class="list-group list-group-flush"> 
+            <li class="list-group-item"><strong>Name: </strong>{{ Showitem.name }}</li>
+            <li class="list-group-item"><strong>Email: </strong>{{ Showitem.email }}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+
+

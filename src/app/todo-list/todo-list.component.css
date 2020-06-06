@@ -1,0 +1,8 @@
+/* table tbody tr:first-child .btn-danger{
+    display:none;
+  } */
+@media screen and (max-width: 575px) {
+    table tr td{
+      min-width:230px;
+    }
+  }
